@@ -25,7 +25,7 @@ module.exports = (env, options) => {
           use: [
             {
               loader: "html-loader",
-              options: { minimize: false /* 최적화옵션*/ } 
+              options: { minimize: true } 
             }
           ]
         },
