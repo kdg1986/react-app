@@ -25,7 +25,7 @@ module.exports = (env, options) => {
           use: [
             {
               loader: "html-loader",
-              options: { minimize: true } 
+              options: { minimize: false } 
             }
           ]
         },
@@ -41,7 +41,8 @@ module.exports = (env, options) => {
           filename: 'index.html' // output
       }),
       new MiniCssExtractPlugin({
-          filename: './css/style.css'
+          filename: './css/style.css',
+          chunkFilename: "[id].css"
       }),
       new CleanWebpackPlugin(),      
     ],
