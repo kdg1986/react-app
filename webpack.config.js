@@ -57,7 +57,8 @@ module.exports = (env, options) => {
     devServer: {
       contentBase: path.resolve(__dirname + "/build"),
       index: "index.html",
-      port: 3000
+      port: 3000,
+      historyApiFallback: true,
     },
   }  
 };
