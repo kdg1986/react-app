@@ -1,20 +1,36 @@
-const config = require("./webpack.config");
+const webpackConfig = require("./webpack.config");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+const config = webpackConfig();
+
 module.exports = () => {  
   return {
-    ...config()
-    ,optimization: {
+    ...config,
+    mode: 'production', //[ production, development, none ]
+    optimization: {
       splitChunks: {
         cacheGroups: {
           commons: {
             test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
+            name: 'vendor',
             chunks: 'all',
           },
         },        
-      },      
+      },
+      minimizer: [ 
+        new UglifyJsPlugin({          
+          uglifyOptions: {
+            warnings: false,            
+          },
+          chunkFilter: (chunk) => {            
+            if (chunk.name === 'vendor') {
+              return false;
+            }   
+            return true;
+          }
+        }),
+      ],
     },
     module: { //loaders
       rules: [
@@ -37,7 +53,6 @@ module.exports = () => {
           use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
         }
       ]
-    },
-    plugins: [ ...config().plugins, new UglifyJsPlugin() ],
+    },  
   }
 };

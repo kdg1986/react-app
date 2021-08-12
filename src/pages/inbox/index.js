@@ -1,24 +1,17 @@
-import React,{ Component } from 'react';
-import { Link, Route } from 'react-router-dom';
+import React from 'react';
+import { Route } from 'react-router-dom';
 import queryString from 'query-string';
-import Grid from '@/pages/inbox/grid';
+import withComponentSplitting from '@/components/withComponentSplitting';
 
+const InboxGrid = withComponentSplitting( () => import('@/pages/inbox/inboxGrid') );
 
-const InboxPotal = () => {
-    return (
-        <h3>InboxPotal111</h3>
-    )
-}
-
-const Inbox = ({location, match}) => {
+export default ({location, match}) => {
     const query = queryString.parse(location.search);    
     return (
         <>        
-            <Route exact path="/inbox" component={InboxPotal}/>
-            <Route exact path="/inbox/grid" component={Grid}/>
+            <Route exact path="/inbox" render={() => <h3>InboxPotal111</h3>}/>
+            <Route exact path="/inbox/grid" component={InboxGrid}/>
             <Route exact path="/inbox/starred/starred_starred" render={()=>(<h3>Starred_Starred</h3>)}/>            
         </>
     )
-}
-
-export default Inbox;
+    }

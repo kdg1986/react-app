@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ Component }from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 
 const columns = [
@@ -36,7 +36,7 @@ const columns = [
 ];
 
 const rows = [
-  { id: 1, lastName: 'Snow1', firstName: 'Jon', age: 35 },
+  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
   { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
   { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
   { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
@@ -47,9 +47,22 @@ const rows = [
   { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
 ];
 
-export default () => {
-  return (
-    <div style={{ height: 400, width: '100%' }}>
+export default class ABC extends Component {
+  
+  state = {
+    aaa : 1
+  }
+  async componentDidMount(){
+    console.log('componentDidMount')
+    const res = await fetch('https://httpbin.org/get');
+    const json = await res.json();
+    console.log( json );
+  }  
+
+  render() {
+    console.log( 'render',this.stage )
+    return(
+      <div style={{ height: 400, width: '100%' }}>
       <DataGrid
         rows={rows}
         columns={columns}
@@ -58,5 +71,6 @@ export default () => {
         disableSelectionOnClick
       />
     </div>
-  );
+    )
+  }
 }

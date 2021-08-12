@@ -3,6 +3,8 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const { webpack } = require("webpack");
+
 
 module.exports = (env, options) => {    
   options = options || {};
@@ -13,17 +15,6 @@ module.exports = (env, options) => {
       chunkFilename: 'static/[name].[chunkhash].chunk.js',
       path: path.resolve(__dirname + "/build"),
       publicPath : "/"
-    },
-    optimization: {
-      splitChunks: {
-        cacheGroups: {
-          commons: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            chunks: 'all',
-          },
-        },        
-      },      
     },
     mode: options.mode || 'development', //[ production, development, none ]    
     module: { //loaders
@@ -52,12 +43,13 @@ module.exports = (env, options) => {
       new HtmlWebPackPlugin({
           template: './public/index.html', // target
           filename: 'index.html' // output
+          
       }),
       new MiniCssExtractPlugin({
           filename: './css/style.css',
           chunkFilename: "[id].css"
       }),
-      new CleanWebpackPlugin(),      
+      new CleanWebpackPlugin(),
     ],
     resolve: {
       alias: {

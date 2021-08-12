@@ -9,7 +9,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 import json from '@/layout/menu';
-import PageRoute from '@/pages';
+import PageRoute from '@/layout/pageRoute';
 
 const drawerWidth = 240;
 
@@ -120,16 +120,16 @@ const Left = ({props}) => {
 
     const _Item = ({props}) => {                
         const { name , path , icon } = props;
-        const [_menu, menu] = React.useState(false);
+        const [_menu, menu] = React.useState(false);        
         return (
             <>
                 <ListItem button>
-                    <Link to={path} onClick={()=>{ setTitle({ title : name }) }}><ListItemIcon>{icon}</ListItemIcon></Link>
+                    <ListItemIcon>{icon}</ListItemIcon>
                     <Link to={path} onClick={()=>{ setTitle({ title : name }) }}><ListItemText primary={name}  /></Link>
                     {props.subPage && (_menu ? <ExpandLess onClick={() => { menu(!_menu) }} /> : <ExpandMore onClick={() => { menu(!_menu) }} />)}
                 </ListItem>
                 {(props.subPage || []).map(
-                    obj => <Collapse in={_menu}  timeout="auto" unmountOnExit>
+                    (obj,idx) => <Collapse in={_menu}  timeout="auto" unmountOnExit key={idx}>
                                 <List component="div" disablePadding>
                                     <ListItem button className={classes.nested} >
                                     <ListItemIcon>{obj.icon}</ListItemIcon>
@@ -177,12 +177,7 @@ export default () => {
   const [header, setTitle] = React.useState({ title : "MAIN" });
   const [backDropState, setBackDrop] = React.useState(false);  
 
-  React.useEffect(() => {    
-    setTimeout(() => { setBackDrop(false); }, 400);
-    return () => {
-        setBackDrop(!backDropState);
-    };
-  });
+  
 
   const headerProps = {
     classes : classes,
