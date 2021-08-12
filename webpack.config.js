@@ -9,8 +9,21 @@ module.exports = (env, options) => {
   return {
     entry: "./src/index.js",
     output: {
-      filename: "./static/[name].[hash].js",
+      filename: "static/[name].[hash].js",
+      chunkFilename: 'static/[name].[chunkhash].chunk.js',
       path: path.resolve(__dirname + "/build"),
+      publicPath : "/"
+    },
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          commons: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            chunks: 'all',
+          },
+        },        
+      },      
     },
     mode: options.mode || 'development', //[ production, development, none ]    
     module: { //loaders
@@ -37,7 +50,7 @@ module.exports = (env, options) => {
     },
     plugins: [
       new HtmlWebPackPlugin({
-        template: './public/index.html', // target
+          template: './public/index.html', // target
           filename: 'index.html' // output
       }),
       new MiniCssExtractPlugin({

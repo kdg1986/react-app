@@ -1,16 +1,12 @@
 import React,{ Component } from 'react';
 import { Link, Route } from 'react-router-dom';
 import queryString from 'query-string';
+import Grid from '@/pages/inbox/grid';
 
-const Starred = () => {
-    return (
-        <h3>Starred</h3>
-    )
-} 
 
 const InboxPotal = () => {
     return (
-        <h3>InboxPotal</h3>
+        <h3>InboxPotal111</h3>
     )
 }
 
@@ -19,7 +15,8 @@ const Inbox = ({location, match}) => {
     return (
         <>        
             <Route exact path="/inbox" component={InboxPotal}/>
-            <Route exact path="/inbox/starred" component={Starred}/>
+            <Route exact path="/inbox/grid" component={Grid}/>
+            <Route exact path="/inbox/starred/starred_starred" render={()=>(<h3>Starred_Starred</h3>)}/>            
         </>
     )
 }
