@@ -4,12 +4,13 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const { webpack } = require("webpack");
+//const ptr = require("@babel/plugin-transform-runtime");
 
 
 module.exports = (env, options) => {    
   options = options || {};
   return {
-    entry: "./src/index.js",
+    entry: "./src/index.js",    
     output: {
       filename: "static/[name].[hash].js",
       chunkFilename: 'static/[name].[chunkhash].chunk.js',
@@ -22,7 +23,11 @@ module.exports = (env, options) => {
         {
           test: /\.(js|jsx)$/,
           exclude: "/node_modules",
-          use: ['babel-loader'],
+          loader: 'babel-loader',
+          options: {
+            //presets: ['@babel/preset-env'],
+            plugins: ['@babel/plugin-transform-runtime'],
+          },          
         },
         {
           test: /\.html$/,
@@ -49,7 +54,7 @@ module.exports = (env, options) => {
           filename: './css/style.css',
           chunkFilename: "[id].css"
       }),
-      new CleanWebpackPlugin(),
+      new CleanWebpackPlugin(),      
     ],
     resolve: {
       alias: {

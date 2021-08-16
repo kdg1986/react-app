@@ -1,5 +1,7 @@
 import React,{ Component }from 'react';
 import { DataGrid } from '@material-ui/data-grid';
+import axios from 'axios';
+//import next from 'next';
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 90 },
@@ -48,14 +50,16 @@ const rows = [
 ];
 
 export default class ABC extends Component {
-  
+
   state = {
     aaa : 1
   }
+
+
   async componentDidMount(){
     console.log('componentDidMount')
-    const res = await fetch('https://httpbin.org/get');
-    const json = await res.json();
+    const res = await axios('https://httpbin.org/get')
+    const json = res.data
     console.log( json );
   }  
 
