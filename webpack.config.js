@@ -3,9 +3,6 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const { webpack } = require("webpack");
-//const ptr = require("@babel/plugin-transform-runtime");
-
 
 module.exports = (env, options) => {    
   options = options || {};
@@ -44,7 +41,7 @@ module.exports = (env, options) => {
         }
       ]
     },
-    plugins: [
+    plugins: [      
       new HtmlWebPackPlugin({
           template: './public/index.html', // target
           filename: 'index.html' // output

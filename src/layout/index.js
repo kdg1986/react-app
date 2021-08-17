@@ -3,13 +3,15 @@ import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Drawer,AppBar,Toolbar,List,CssBaseline,Typography,Divider,IconButton,ListItemIcon,ListItemText,Collapse,ListItem,Button,Backdrop,CircularProgress  } from '@material-ui/core';
-import {ExpandLess,ExpandMore,StarBorder} from '@material-ui/icons';
+import {ExpandLess,ExpandMore} from '@material-ui/icons';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 import json from '@/layout/menu';
-import PageRoute from '@/layout/pageRoute';
+import PageRoute from '@/pages';
+import Loading from '@/components/atoms/loading';
+import { useDispatch } from 'react-redux';
 
 const drawerWidth = 240;
 
@@ -75,11 +77,7 @@ const useStyles = makeStyles((theme) => ({
   },
   nested: {
     paddingLeft: theme.spacing(4),
-  },
-  backdrop: {
-    zIndex: theme.zIndex.drawer + 1,
-    color: '#fff',
-  },
+  },  
 }));
 
 
@@ -175,17 +173,12 @@ export default () => {
   const classes = useStyles();  
   const [open, setOpen] = React.useState(true); //header
   const [header, setTitle] = React.useState({ title : "MAIN" });
-  const [backDropState, setBackDrop] = React.useState(false);  
-
-  
-
   const headerProps = {
     classes : classes,
     handleDrawerOpen : ()=>{ setOpen(!open); },    
     open : open,
     menuTitle : header.title
   }
-
   const leftProps = {
     classes : classes,    
     open : open,    
@@ -194,19 +187,17 @@ export default () => {
   }
 
   return (
-    <>
-        <div className={classes.root}>
+    <>  
+        <div className={classes.root}>              
             <CssBaseline />     
             <Header props={headerProps} />
             <Left props={leftProps} />      
             <main className={classes.content}>
                 <div className={classes.toolbar} />
-                <PageRoute/>
-            </main>
-        </div>
-        <Backdrop className={classes.backdrop} open={backDropState}>
-        <CircularProgress color="inherit" />
-        </Backdrop>
+                <PageRoute menu={json}/>
+            </main>            
+        </div>     
+        <Loading/>
     </>
   );
 }

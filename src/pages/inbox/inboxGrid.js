@@ -55,16 +55,18 @@ export default class ABC extends Component {
     aaa : 1
   }
 
+  
 
   async componentDidMount(){
     console.log('componentDidMount')
     const res = await axios('https://httpbin.org/get')
     const json = res.data
-    console.log( json );
+    //console.log( json );
   }  
 
   render() {
-    console.log( 'render',this.stage )
+    //console.log( 'render',this.stage )
+    //console.log( this.props )
     return(
       <div style={{ height: 400, width: '100%' }}>
       <DataGrid
