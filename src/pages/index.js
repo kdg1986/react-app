@@ -10,11 +10,6 @@ export default () => {
 
     const dispatch = useDispatch();
 
-    useEffect( () => {
-        console.log(1);
-        //dispatch({ type: 'common/LOADING' });
-    })
-
     return(
         <>
             <Route exact path="/" render={()=>(
