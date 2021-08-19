@@ -12,10 +12,10 @@ const useStyles = makeStyles((theme) => ({
 
 const Loading = () => {
     const classes = useStyles();    
-    const display = useSelector(state => state.loading.display);
+    const store = useSelector(state => state.loadingReducer);
     return(
-        <>         
-        <Backdrop className={classes.backdrop}  open={display}>
+        <>                
+        <Backdrop className={classes.backdrop} open={store.display}  >        
             <CircularProgress color="inherit" />
         </Backdrop>
         </>

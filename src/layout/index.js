@@ -1,17 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Drawer,AppBar,Toolbar,List,CssBaseline,Typography,Divider,IconButton,ListItemIcon,ListItemText,Collapse,ListItem,Button,Backdrop,CircularProgress  } from '@material-ui/core';
-import {ExpandLess,ExpandMore} from '@material-ui/icons';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import { makeStyles } from '@material-ui/core/styles';
+import { CssBaseline } from '@material-ui/core';
 
 import json from '@/layout/menu';
 import PageRoute from '@/pages';
 import Loading from '@/components/atoms/loading';
-import { useDispatch } from 'react-redux';
+
+import Header from '@/layout/header';
+import Left from '@/layout/left';
+
 
 const drawerWidth = 240;
 
@@ -80,118 +77,14 @@ const useStyles = makeStyles((theme) => ({
   },  
 }));
 
-
-const Header = ({props}) => {    
-    const { classes,handleDrawerOpen,open,menuTitle } = props;
-    
-    return(
-        <AppBar
-            position="fixed"
-            className={clsx(classes.appBar, {
-            [classes.appBarShift]: open,
-            })}
-        >
-            <Toolbar>
-            <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={handleDrawerOpen}
-                edge="start"
-                className={clsx(classes.menuButton, {
-                [classes.hide]: open,
-                })}
-            >
-                <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" noWrap>
-                {menuTitle}
-            </Typography>
-            <Button color="inherit">Login</Button>
-            </Toolbar>
-        </AppBar>
-    )
-}
-
-const Left = ({props}) => {
-    const theme = useTheme();    
-    const {classes,open,handleDrawerClose,setTitle} = props;
-
-    const _Item = ({props}) => {                
-        const { name , path , icon } = props;
-        const [_menu, menu] = React.useState(false);        
-        return (
-            <>
-                <ListItem button>
-                    <ListItemIcon>{icon}</ListItemIcon>
-                    <Link to={path} onClick={()=>{ setTitle({ title : name }) }}><ListItemText primary={name}  /></Link>
-                    {props.subPage && (_menu ? <ExpandLess onClick={() => { menu(!_menu) }} /> : <ExpandMore onClick={() => { menu(!_menu) }} />)}
-                </ListItem>
-                {(props.subPage || []).map(
-                    (obj,idx) => <Collapse in={_menu}  timeout="auto" unmountOnExit key={idx}>
-                                <List component="div" disablePadding>
-                                    <ListItem button className={classes.nested} >
-                                    <ListItemIcon>{obj.icon}</ListItemIcon>
-                                    <Link to={obj.path}><ListItemText primary={obj.name} /></Link>
-                                    </ListItem>
-                                </List>
-                            </Collapse>
-                )}
-            </>
-        )
-    }
-
-    return(
-      <Drawer
-        variant="permanent"
-        className={clsx(classes.drawer, {
-          [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open,
-        })}
-        classes={{
-          paper: clsx({
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open,
-          }),
-        }}
-      >
-        <div className={classes.toolbar}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
-        </div>
-        <Divider />
-        <List>
-           {json.map((obj,index) =>(<_Item props={obj} key={index}/>)) }          
-        </List>
-        {/*<Divider /> */}
-      </Drawer>
-    )
-    
-}
-
 export default () => {
   const classes = useStyles();  
-  const [open, setOpen] = React.useState(true); //header
-  const [header, setTitle] = React.useState({ title : "MAIN" });
-  const headerProps = {
-    classes : classes,
-    handleDrawerOpen : ()=>{ setOpen(!open); },    
-    open : open,
-    menuTitle : header.title
-  }
-  const leftProps = {
-    classes : classes,    
-    open : open,    
-    handleDrawerClose : () => { setOpen(!open); },    
-    setTitle : (obj) => { setTitle(obj) }
-  }
-
   return (
     <>  
         <div className={classes.root}>              
             <CssBaseline />     
-            <Header props={headerProps} />
-            <Left props={leftProps} />      
+            <Header props={{ classes : classes }} />
+            <Left props={{classes : classes,json : json}} />      
             <main className={classes.content}>
                 <div className={classes.toolbar} />
                 <PageRoute menu={json}/>

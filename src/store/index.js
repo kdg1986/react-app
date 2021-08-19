@@ -1,11 +1,12 @@
 import { combineReducers,createStore } from "redux";
-//import * as reducer from './reducer';
-import loading from './reducer/loading';
+import loadingReducer from './reducer/loadingReducer';
+import layoutReducer from './reducer/layoutReducer';
 
 export default (() => {    
     return createStore( 
         combineReducers({
-            loading
+            loadingReducer,
+            layoutReducer,            
         })
     )
 })();
