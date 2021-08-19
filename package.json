@@ -5,7 +5,9 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack --config ./webpack.config.prd",
+    "build-ele": "webpack --config ./webpack.config.ele",
     "start": "webpack serve",
+    "start-ele": "electron ./electron/main.js",
     "dev": "next"
   },
   "devDependencies": {
@@ -23,6 +25,7 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "css-loader": "^6.2.0",
+    "electron": "^13.2.1",
     "html-loader": "^2.1.2",
     "html-webpack-plugin": "^5.3.2",
     "mini-css-extract-plugin": "^2.2.0",
