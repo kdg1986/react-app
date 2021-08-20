@@ -1,12 +1,11 @@
-const webpackConfig = require("./webpack.config");
+const webpackConfig = require("./webpack.config")();
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
-const config = webpackConfig();
 
 module.exports = () => {  
   return {
-    ...config,
+    ...webpackConfig,
     output: {
       filename: "static/[name].[hash].js",
       chunkFilename: 'static/[name].[chunkhash].chunk.js',
