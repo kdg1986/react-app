@@ -16,30 +16,7 @@ module.exports = (env, options) => {
     },
     mode: options.mode || 'development', //[ production, development, none ]    
     module: { //loaders
-      rules: [
-        {
-          test: /\.(js|jsx)$/,
-          exclude: "/node_modules",
-          loader: 'babel-loader',
-          options: {
-            //presets: ['@babel/preset-env'],
-            plugins: ['@babel/plugin-transform-runtime'],
-          },          
-        },
-        {
-          test: /\.html$/,
-          use: [
-            {
-              loader: "html-loader",
-              options: { minimize: false } 
-            }
-          ]
-        },
-        {
-          test: /\.(css|scss)$/,
-          use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
-        }
-      ]
+      rules: [ ...require('./webpack.loaders') ]
     },
     plugins: [      
       new HtmlWebPackPlugin({
@@ -53,14 +30,7 @@ module.exports = (env, options) => {
       }),
       new CleanWebpackPlugin(),      
     ],
-    resolve: {
-      alias: {
-        '@': path.resolve(__dirname, 'src/'),
-        '@COMPONENTS': path.resolve(__dirname, 'src/components/'),
-        '@COMMON': path.resolve(__dirname, 'src/components/common'),
-        '@STYLE': path.resolve(__dirname, 'src/css'),
-      },
-    },
+    resolve: require('./webpack.alias'),
     devServer: {
       contentBase: path.resolve(__dirname + "/build"),
       index: "index.html",
