@@ -4,7 +4,7 @@ module.exports = {
     {
       name: "@electron-forge/maker-squirrel",
       config: {
-        name: "my_new_app"
+        name: "client"
       }
     },
     {
@@ -19,7 +19,9 @@ module.exports = {
     },
     {
       name: "@electron-forge/maker-rpm",
-      config: {}
+      config: {
+        name: "client"
+      }
     }
   ],
   plugins: [
