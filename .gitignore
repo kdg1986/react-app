@@ -106,7 +106,8 @@ dist
 #vscode
 .vscode/
 
-#build folder
+#other
 build/
 out/
 .webpack/
+electron/
