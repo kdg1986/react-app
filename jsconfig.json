@@ -6,6 +6,7 @@
       "@COMPONENTS/*": ["./src/components/*"],
       "@COMMON/*": ["./src/components/common/*"],
       "@STYLE/*": ["./src/css/*"],      
+      "@ELECTRON": ["./electron/*"]
     }
   }
 }

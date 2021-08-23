@@ -34,7 +34,7 @@ module.exports = {
           entryPoints: [
             {
               "html": "./public/index.html",
-              "js": "./src/index.js",
+              "js": "./electron/index.ele.js",
               "name": "main_window"
             }
           ]

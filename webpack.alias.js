@@ -5,5 +5,6 @@ module.exports = {
         '@COMPONENTS': path.resolve(__dirname, 'src/components/'),
         '@COMMON': path.resolve(__dirname, 'src/components/common'),
         '@STYLE': path.resolve(__dirname, 'src/css'),
+        '@ELECTRON': path.resolve(__dirname, 'electron/'),
       },
 }
