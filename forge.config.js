@@ -28,10 +28,10 @@ module.exports = {
     [
       "@electron-forge/plugin-webpack",
       {
-        "mainConfig": "./webpack.ele.main.config.js",
-        "renderer": {
-          "config": "./webpack.ele.renderer.config.js",
-          "entryPoints": [
+        mainConfig: "./webpack.ele.main.config.js",        
+        renderer: {
+          config: "./webpack.ele.renderer.config.js",
+          entryPoints: [
             {
               "html": "./public/index.html",
               "js": "./src/index.js",
