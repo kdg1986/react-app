@@ -1,0 +1,8 @@
+div {box-sizing:border-box}
+.wrap {position:relative; padding:40px }
+.drag {display:inline-block; background:#f4f4f4; border:3px solid #ddd; margin:10px; padding:30px; cursor:grab}
+.drag:hover {border:3px dotted #222}
+.drag.d1 {width:100%}
+.drag.d2 {width:50%}
+.drag.d3 {width:40%}
+.drag.d4 {width:30%; background-image: url("@/images/Lion1.jpg");}

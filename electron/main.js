@@ -6,8 +6,7 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({    
     width : 1024,
     height : 768,
-    fullscreenable : true,
-    alwaysOnTop : true
+    fullscreenable : true,    
   });
 
   mainWindow.removeMenu();
@@ -16,7 +15,7 @@ const createWindow = () => {
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   // Open the DevTools.
-  //mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 
   
 };

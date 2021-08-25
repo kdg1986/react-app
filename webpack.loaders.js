@@ -6,8 +6,20 @@ module.exports = [
         exclude: "/node_modules",
         loader: 'babel-loader',
         options: {    
-        plugins: ['@babel/plugin-transform-runtime'],
+            plugins: ['@babel/plugin-transform-runtime'],
         },          
+    },
+    {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+                outputPath: 'images',
+                name: '[name].[ext]?[hash]',
+            }
+          },
+        ],
     },
     {
         test: /\.html$/,

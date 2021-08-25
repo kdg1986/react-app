@@ -8,7 +8,8 @@ const json = [
         { name : "starred_starred", path : "/inbox/starred/starred_starred", icon : <InboxIcon/> }
     ]},
     { name : "inbox2", path : "/inbox2", icon : <InboxIcon/>, subPage :[
-        { name : "table", path : "/inbox2/table", icon : <InboxIcon/> },
+        { name : "react-dnd", path : "/inbox2/react-dnd", icon : <InboxIcon/> },
+        { name : "react-deatiful-dnd", path : "/inbox2/react-deatiful-dnd", icon : <InboxIcon/> },
     ]},
     { name : "inbox3", path : "/inbox3", icon : <InboxIcon/> },
     { name : "inbox4", path : "/inbox4", icon : <InboxIcon/> },    

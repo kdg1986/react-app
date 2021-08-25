@@ -49,6 +49,18 @@ module.exports = () => {
           ]
         },
         {
+          test: /\.(png|jpe?g|gif)$/i,
+          use: [
+            {
+              loader: 'file-loader',
+              options: {
+                outputPath: 'static/images',
+                name: '[name].[ext]?[hash]',
+              }
+            }
+          ],
+      },
+        {
           test: /\.(css|scss)$/,
           use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
         }
