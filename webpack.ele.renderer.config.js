@@ -1,6 +1,6 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
 
 module.exports = {
   // Put your normal webpack config below here
@@ -28,8 +28,7 @@ module.exports = {
     new MiniCssExtractPlugin({
         filename: './css/style.css',
         chunkFilename: "[id].css"
-    }),
-    new CleanWebpackPlugin(),      
+    }),    
   ],
   resolve: require('./webpack.alias')
 };

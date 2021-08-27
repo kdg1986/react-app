@@ -2,6 +2,10 @@ import React,{ useCallback,useState,useEffect } from 'react';
 import { DragDropContext,Droppable,Draggable } from 'react-beautiful-dnd';
 import "@STYLE/potal.scss"; 
 import withComponentSplitting from '@/components/withComponentSplitting';
+import { useDispatch, useSelector } from 'react-redux';
+
+
+//dotted #222
 
 const Drag = props => {  
   return(
@@ -34,59 +38,68 @@ const Drop = props => {
   )
 }
 
-const App = () => {
-  
-  const [todos,setTodos] = useState([]);
+const App = () => {  
+  const [positon,setPosition] = useState(false);  
+  const store = useSelector(state => state.layoutReducer);
+  const dispatch = useDispatch();
 
-   // useEffect는 첫번째 인자로 callBack함수를 받습니다.
   useEffect(() => {
-    console.log('useEffect')
-      setTodos([
-        { id: "0", title: "A", className : "drag d1", Compnent : withComponentSplitting( () => import('../inbox/inboxGrid') ) },
-        { id: "1", title: "B", className : "drag d2", Compnent : withComponentSplitting( () => import('../inbox2/Table') ) },
-        { id: "2", title: "C", className : "drag d3", Compnent : withComponentSplitting( () => import('../inbox2/Table') ) },
-        { id: "3", title: "D", className : "drag d4"},
-        { id: "4", title: "D", className : "drag d5"},
-        { id: "5", title: "D", className : "drag d6"},
-        { id: "6", title: "D", className : "drag d7"},
-      ])
-  }, []); //<--- 두번째 인자로 빈 배열 넣어주기
+    !store.potalPosition.length && dispatch({ type: 'layout/portal', payload : [
+      { id: "0", title: "A", className : "drag d1", Compnent : withComponentSplitting( () => import('../inbox/inboxGrid') ) },
+      { id: "1", title: "B", className : "drag d2", Compnent : withComponentSplitting( () => import('../inbox2/Table') ) },
+      { id: "2", title: "C", className : "drag d3", Compnent : withComponentSplitting( () => import('../inbox2/Table') ) },
+      { id: "3", title: "D", className : "drag d4"},
+      { id: "4", title: "D", className : "drag d5"},
+      { id: "5", title: "D", className : "drag d6"},
+      { id: "6", title: "D", className : "drag d7"},
+    ] })
+  }, []);
 
   // using useCallback is optional
   const onBeforeCapture = useCallback(() => {
     //console.log('onBeforeCapture',todos)
     /*...*/
-  }, [todos]);
+  }, [store.potalPosition]);
   const onBeforeDragStart = useCallback(() => {
     //console.log('onBeforeDragStart',todos)
     /*...*/
-  }, [todos]);
+  }, [store.potalPosition]);
   const onDragStart = useCallback(() => {
     //console.log('onDragStart',todos)
     /*...*/
-  }, [todos]);
+  }, [store.potalPosition]);
   const onDragUpdate = useCallback(() => {
     //console.log('onDragUpdate',todos)
     /*...*/
-  }, [todos]);
+  }, [store.potalPosition]);
   const onDragEnd = useCallback((args) => {
-    const _todos = todos.slice(0);
+    const _todos = store.potalPosition.slice(0);
     const dragble = _todos.splice(args.source.index,1);
-    _todos.splice(args.destination.index,0,dragble[0])
-    setTodos(_todos)
-  }, [todos]);
+    _todos.splice(args.destination.index,0,dragble[0]);
+    console.log( _todos );
+    dispatch({ type: 'layout/portal', payload : _todos });
+  }, [store.potalPosition]);
 
   return (
-    <DragDropContext
-      onBeforeCapture={onBeforeCapture}
-      onBeforeDragStart={onBeforeDragStart}
-      onDragStart={onDragStart}
-      onDragUpdate={onDragUpdate}
-      onDragEnd={onDragEnd}
-    >
-      <Drop todos={todos}/>
-
-    </DragDropContext>
+    positon 
+      ?   <>
+            <button onClick={() => setPosition(!positon) }>완료</button>
+            <DragDropContext
+              onBeforeCapture={onBeforeCapture}
+              onBeforeDragStart={onBeforeDragStart}
+              onDragStart={onDragStart}
+              onDragUpdate={onDragUpdate}
+              onDragEnd={onDragEnd}
+            >
+              <Drop todos={store.potalPosition}/>
+            </DragDropContext>
+          </>
+      :   <>
+            <button onClick={() => setPosition(!positon) }>수정</button>
+            <div className="wrap">
+              {store.potalPosition.map((item, index) => <div key={index} className={`${item.className} hover`}>{item.Compnent && <item.Compnent/>}</div>)}
+            </div>
+          </>
   );
 }
 

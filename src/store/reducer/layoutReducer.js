@@ -1,6 +1,7 @@
 const initalState = {
     title : "Main",
-    showMenu : true,        
+    showMenu : true,
+    potalPosition: [],        
 }
 
 export default (state=initalState,action) => {
@@ -11,6 +12,8 @@ export default (state=initalState,action) => {
             return { ...state,showMenu : !state.showMenu }        
         case 'layout/menuExpend' :
             return { ...state, [action.payload.menu] : action.payload.state }
+        case 'layout/portal' :
+            return { ...state, potalPosition : action.payload }
         default :
             return state
     }
