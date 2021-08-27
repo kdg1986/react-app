@@ -5,7 +5,19 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {
   // Put your normal webpack config below here
   module: {
-    rules: [ ...require('./webpack.ele.rules'),...require('./webpack.loaders') ]
+    rules: [ ...require('./webpack.ele.rules'),
+      ...require("./webpack.loaders").concat([
+        {
+          test: /\.html$/,
+          use: [
+          {
+              loader: "html-loader",
+              options: { minimize: true } 
+          }
+          ]
+        }        
+      ])
+    ]
   },
   plugins: [      
     new HtmlWebPackPlugin({
