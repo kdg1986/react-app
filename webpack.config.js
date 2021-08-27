@@ -1,7 +1,7 @@
+//https://webpack.kr/guides/csp/
 const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = (env, options) => {    
@@ -13,7 +13,9 @@ module.exports = (env, options) => {
       chunkFilename: 'static/[name].[chunkhash].chunk.js',
       assetModuleFilename: 'images/[hash][ext][query]',
       path: path.resolve(__dirname + "/build"),
-      publicPath : "/"
+      publicPath : "/",
+      clean: true,
+      pathinfo: false,
     },
     mode: options.mode || 'development', //[ production, development, none ]    
     module: { //loaders
@@ -33,6 +35,7 @@ module.exports = (env, options) => {
     },
     plugins: [      
       new HtmlWebPackPlugin({
+          title: 'REACT-APP',
           template: './public/index.html', // target
           filename: 'index.html' // output
           
@@ -40,8 +43,7 @@ module.exports = (env, options) => {
       new MiniCssExtractPlugin({
           filename: './css/style.css',
           chunkFilename: "css/[id].css"
-      }),
-      new CleanWebpackPlugin(),      
+      }),      
     ],
     resolve: require('./webpack.alias'),
     devServer: {

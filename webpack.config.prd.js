@@ -6,6 +6,7 @@ module.exports = () => {
     ...webpackConfig(),
     mode: 'production', //[ production, development, none ]
     optimization: {
+      runtimeChunk: 'single',
       splitChunks: {
         cacheGroups: {
           commons: {
