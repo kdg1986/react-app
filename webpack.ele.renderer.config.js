@@ -1,5 +1,6 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpackConfig = require("./webpack.config")();
 
 
 module.exports = {
@@ -30,5 +31,5 @@ module.exports = {
         chunkFilename: "[id].css"
     }),    
   ],
-  resolve: require('./webpack.alias')
+  resolve: webpackConfig.resolve
 };

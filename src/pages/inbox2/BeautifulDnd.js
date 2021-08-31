@@ -3,9 +3,8 @@ import { DragDropContext,Droppable,Draggable } from 'react-beautiful-dnd';
 import "@STYLE/potal.scss"; 
 import withComponentSplitting from '@/components/withComponentSplitting';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 
-
-//dotted #222
 
 const Drag = props => {  
   return(
@@ -44,7 +43,8 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    !store.potalPosition.length && dispatch({ type: 'layout/portal', payload : [
+    console.log('useEffect')
+    const init = [
       { id: "0", title: "A", className : "drag d1", Compnent : withComponentSplitting( () => import('../inbox/inboxGrid') ) },
       { id: "1", title: "B", className : "drag d2", Compnent : withComponentSplitting( () => import('../inbox2/Table') ) },
       { id: "2", title: "C", className : "drag d3", Compnent : withComponentSplitting( () => import('../inbox2/Table') ) },
@@ -52,7 +52,26 @@ const App = () => {
       { id: "4", title: "D", className : "drag d5"},
       { id: "5", title: "D", className : "drag d6"},
       { id: "6", title: "D", className : "drag d7"},
-    ] })
+    ]
+    const initPotal = async () => {      
+      try {        
+        const res = await axios.get(`${ELASTIC_URL}/user/info/admin?pretty&filter_path=_source`);
+        const sort = JSON.parse(res.data._source.order);        
+        if(sort.length > 0){          
+          dispatch({ type: 'layout/portal', payload : sort.reduce( (acc,cur,idx,arr) => acc = acc.concat( init.filter(item => item.id === cur ) ),[]) });
+        }else{
+          throw 'Parameter is not a number!';
+        }
+      } catch (error) {
+        console.log( error );                        
+        dispatch({ type: 'layout/portal', payload : init });
+        axios.POST(`${ELASTIC_URL}/user/info/admin`, { order: JSON.stringify(init.map(({id})=> id )) });        
+      }
+    };  
+    if(!store.potalPosition.length){
+      console.log('get elasticsearch');
+      initPotal();      
+    }
   }, []);
 
   // using useCallback is optional
@@ -75,8 +94,8 @@ const App = () => {
   const onDragEnd = useCallback((args) => {
     const _todos = store.potalPosition.slice(0);
     const dragble = _todos.splice(args.source.index,1);
-    _todos.splice(args.destination.index,0,dragble[0]);
-    console.log( _todos );
+    _todos.splice(args.destination.index,0,dragble[0]);      
+    axios.put(`${ELASTIC_URL}/user/info/admin`, { order: JSON.stringify(_todos.map(({id})=> id ))   })
     dispatch({ type: 'layout/portal', payload : _todos });
   }, [store.potalPosition]);
 
