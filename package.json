@@ -4,7 +4,7 @@
   "description": "application description",
   "main": ".webpack/main/index.js",
   "license": "MIT",
-  "author": "ADMIN",  
+  "author": "ADMIN",
   "devDependencies": {
     "@babel/core": "^7.15.0",
     "@babel/plugin-transform-runtime": "^7.15.0",
@@ -43,12 +43,11 @@
     "redux": "^4.1.1",
     "redux-actions": "^2.6.5",
     "sass-loader": "^12.1.0",
-    "style-loader": "^3.2.1",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^5.48.0",
     "webpack-cli": "^4.7.2",
     "webpack-dev-server": "^3.11.2"
-  },  
+  },
   "scripts": {
     "start": "webpack serve",
     "build": "rm -rf build && webpack --config ./webpack.config.prd",
