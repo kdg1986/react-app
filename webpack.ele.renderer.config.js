@@ -20,16 +20,6 @@ module.exports = {
       ])
     ]
   },
-  plugins: [      
-    new HtmlWebPackPlugin({
-        template: './public/index.html', // target
-        filename: 'index.html' // output
-        
-    }),
-    new MiniCssExtractPlugin({
-        filename: './css/style.css',
-        chunkFilename: "[id].css"
-    }),    
-  ],
+  plugins: webpackConfig.plugins,
   resolve: webpackConfig.resolve
 };

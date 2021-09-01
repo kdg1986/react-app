@@ -42,8 +42,7 @@ const App = () => {
   const store = useSelector(state => state.layoutReducer);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log('useEffect')
+  useEffect(() => {    
     const init = [
       { id: "0", title: "A", className : "drag d1", Compnent : withComponentSplitting( () => import('../inbox/inboxGrid') ) },
       { id: "1", title: "B", className : "drag d2", Compnent : withComponentSplitting( () => import('../inbox2/Table') ) },
@@ -67,11 +66,8 @@ const App = () => {
         dispatch({ type: 'layout/portal', payload : init });
         axios.POST(`${ELASTIC_URL}/user/info/admin`, { order: JSON.stringify(init.map(({id})=> id )) });        
       }
-    };  
-    if(!store.potalPosition.length){
-      console.log('get elasticsearch');
-      initPotal();      
-    }
+    };      
+    initPotal();          
   }, []);
 
   // using useCallback is optional

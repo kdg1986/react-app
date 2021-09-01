@@ -2,7 +2,6 @@
 const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = (env, options) => {    
@@ -66,7 +65,7 @@ module.exports = (env, options) => {
         "stream": false,
         "os": false,
       }
-    },
+    },    
     devServer: {
       contentBase: path.resolve(__dirname + "/build"),
       index: "index.html",
