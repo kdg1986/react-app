@@ -21,5 +21,6 @@ nodejs 14.x.x
 
 ## Build
 `yarn build -> ./build`
-`yarn build-ele -> ./out  ./dist`
+
+`yarn build-ele -> ./dist`
 
