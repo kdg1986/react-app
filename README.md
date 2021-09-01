@@ -15,5 +15,11 @@ nodejs 14.x.x
 
 ```
 
-## Startup Web Server
+## Start
 `yarn start`
+`http://localhost:3000`
+
+## Build
+`yarn build -> ./build`
+`yarn build-ele -> ./out  ./dist`
+
