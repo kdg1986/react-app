@@ -2,8 +2,9 @@
 ```
 window 10
 nodejs 14.x.x
+git
 ```
-`https://github.com/kdg1986/react-app.git`
+`git clone https://github.com/kdg1986/react-app.git`
 
 `cd react-app`
 
