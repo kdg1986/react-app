@@ -110,4 +110,3 @@ dist
 build/
 out/
 .webpack/
-electron/

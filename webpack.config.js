@@ -7,7 +7,7 @@ const webpack = require('webpack');
 module.exports = (env, options) => {    
   options = options || {};
   return {
-    entry: "./src/index.js",    
+    entry: "./src/index.js",
     output: {
       filename: "static/[name].[hash].js",
       chunkFilename: 'static/[name].[chunkhash].chunk.js',
