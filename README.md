@@ -16,6 +16,4 @@ nodejs 14.x.x
 ```
 
 ## Startup Web Server
-
-    `yarn start`
-    `http://localhost:3000`
+`yarn start`
