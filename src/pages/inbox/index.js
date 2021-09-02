@@ -1,4 +1,3 @@
-import React from 'react';
 import { Route } from 'react-router-dom';
 import queryString from 'query-string';
 import withComponentSplitting from '@/components/withComponentSplitting';

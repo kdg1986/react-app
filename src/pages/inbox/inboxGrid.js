@@ -1,4 +1,4 @@
-import React,{ Component }from 'react';
+import { Component }from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 import axios from 'axios';
 //import next from 'next';

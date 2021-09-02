@@ -45,8 +45,8 @@ const App = () => {
   useEffect(() => {    
     const init = [
       { id: "0", title: "A", className : "drag d1", Compnent : withComponentSplitting( () => import('../inbox/inboxGrid') ) },
-      { id: "1", title: "B", className : "drag d2", Compnent : withComponentSplitting( () => import('../inbox2/Table') ) },
-      { id: "2", title: "C", className : "drag d3", Compnent : withComponentSplitting( () => import('../inbox2/Table') ) },
+      { id: "1", title: "B", className : "drag d2", Compnent : withComponentSplitting( () => import('./Table') ) },
+      { id: "2", title: "C", className : "drag d3", Compnent : withComponentSplitting( () => import('./Table') ) },
       { id: "3", title: "D", className : "drag d4"},
       { id: "4", title: "D", className : "drag d5"},
       { id: "5", title: "D", className : "drag d6"},
