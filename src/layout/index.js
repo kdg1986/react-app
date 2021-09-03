@@ -1,4 +1,5 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles,createTheme, ThemeProvider } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { CssBaseline } from '@material-ui/core';
 
 import json from '@/layout/menu';
@@ -7,6 +8,9 @@ import Loading from '@/components/atoms/loading';
 
 import Header from '@/layout/header';
 import Left from '@/layout/left';
+import { useMemo } from 'react';
+
+
 
 
 const drawerWidth = 240;
@@ -78,17 +82,30 @@ const useStyles = makeStyles((theme) => ({
 
 export default () => {
   const classes = useStyles();  
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');    
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          type: prefersDarkMode ? 'dark' : 'light',
+        },
+      }),
+    [prefersDarkMode],
+  );
+
   return (
     <>  
-        <div className={classes.root}>              
-            <CssBaseline />     
-            <Header props={{ classes : classes }} />
-            <Left props={{classes : classes,json : json}} />      
-            <main className={classes.content}>
-                <div className={classes.toolbar} />
-                <PageRoute menu={json}/>
-            </main>            
-        </div>     
+        <ThemeProvider theme={theme}>
+          <div className={classes.root}>              
+              <CssBaseline />     
+              <Header props={{ classes : classes }} />
+              <Left props={{classes : classes,json : json}} />      
+              <main className={classes.content}>
+                  <div className={classes.toolbar} />
+                  <PageRoute menu={json}/>
+              </main>            
+          </div>     
+        </ThemeProvider>
         <Loading/>
     </>
   );

@@ -1,4 +1,4 @@
-import React,{ useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { Card } from './Card';
 import update from 'immutability-helper';
 import { DndProvider } from 'react-dnd'
