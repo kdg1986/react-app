@@ -106,7 +106,7 @@ export default () => {
               </main>            
           </div>     
         </ThemeProvider>
-        <Loading/>
+        <Loading/>        
     </>
   );
 }
