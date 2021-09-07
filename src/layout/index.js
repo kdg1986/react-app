@@ -10,8 +10,8 @@ import Header from '@/layout/header';
 import Left from '@/layout/left';
 import { useMemo } from 'react';
 
-
-
+import Antd from '@/layout/Antd';
+import { Route, Switch } from 'react-router';
 
 const drawerWidth = 240;
 
@@ -93,9 +93,10 @@ export default () => {
     [prefersDarkMode],
   );
 
-  return (
-    <>  
-        <ThemeProvider theme={theme}>
+  const MaterialUI = () => {
+    return(
+      <>
+      <ThemeProvider theme={theme}>
           <div className={classes.root}>              
               <CssBaseline />     
               <Header props={{ classes : classes }} />
@@ -106,7 +107,15 @@ export default () => {
               </main>            
           </div>     
         </ThemeProvider>
-        <Loading/>        
+        <Loading/>
+      </>
+    )
+  }
+
+  return (
+    <>  
+        <Route path="/material" component={MaterialUI}/>
+        <Route path="/ant" component={Antd}/>
     </>
   );
 }

@@ -41,8 +41,8 @@ module.exports = (env, options) => {
           
       }),
       new MiniCssExtractPlugin({
-          filename: './css/[id].css',
-          chunkFilename: "css/[id].css"
+          filename: './css/[name]_[id].css',
+          chunkFilename: "css/[name]_[id].css"
       }),
       new webpack.DefinePlugin({
         ELASTIC_URL: JSON.stringify("http://kdg1986.synology.me:9200"),        

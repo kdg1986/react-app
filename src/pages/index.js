@@ -27,13 +27,13 @@ const Dialogs = () =>{
 export default () => {    
     return(
         <>
-            <Route exact path="/" render={()=><Dialogs/>}/>
+            <Route exact path="/material" render={()=><Dialogs/>}/>
             <Switch>
-                <Route path="/inbox" component={Inbox}/>
-                <Route path="/inbox/:name" component={Inbox}/>
+                <Route path="/material/inbox" component={Inbox}/>
+                <Route path="/material/inbox/:name" component={Inbox}/>
                 
-                <Route path="/inbox2" component={Inbox2}/>
-                <Route path="/inbox2/:name" component={Inbox2}/>
+                <Route path="/material/inbox2" component={Inbox2}/>
+                <Route path="/material/inbox2/:name" component={Inbox2}/>
             </Switch>
         </>
     )
