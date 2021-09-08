@@ -55,16 +55,7 @@ module.exports = (env, options) => {
         '@COMMON': path.resolve(__dirname, 'src/components/common'),
         '@STYLE': path.resolve(__dirname, 'src/css'),
         '@ELECTRON': path.resolve(__dirname, 'electron/'),    
-      },
-      fallback: {
-        "http": false,
-        "https": false,
-        "assert": false,
-        "zlib": false,        
-        "util": false,                
-        "stream": false,
-        "os": false,
-      }
+      },      
     },    
     devServer: {
       contentBase: path.resolve(__dirname + "/build"),

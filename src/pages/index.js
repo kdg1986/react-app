@@ -26,7 +26,12 @@ const Dialogs = () =>{
 
 export default () => {    
     return(
-        <>
+        <>  
+            <button onClick={()=>{
+                const NOTIFICATION_TITLE = 'Title';
+                const NOTIFICATION_BODY = 'Notification from the Renderer process. Click to log to console.';
+                new Notification(NOTIFICATION_TITLE, { body: NOTIFICATION_BODY });
+            }}>noti</button>
             <Route exact path="/material" render={()=><Dialogs/>}/>
             <Switch>
                 <Route path="/material/inbox" component={Inbox}/>

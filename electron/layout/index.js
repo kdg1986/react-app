@@ -81,7 +81,7 @@ export default () => {
   const classes = useStyles();  
   return (
     <>  
-        <div className={classes.root}>              
+        <div className={classes.root}>                          
             <CssBaseline />     
             <Header props={{ classes : classes }} />
             <Left props={{classes : classes,json : json}} />      
