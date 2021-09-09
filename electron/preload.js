@@ -4,10 +4,6 @@
 //https://www.electronjs.org/docs/tutorial/process-model#preload-scripts
 const { ipcRenderer,contextBridge } = require('electron');
 
-ipcRenderer.on('asynchronous-reply', (event, arg) => {
-  console.log(arg) // prints "pong"
-});
-
 //window.ipcRenderer = require('electron').ipcRenderer;
 contextBridge.exposeInMainWorld('ipcRenderer', ipcRenderer);
 contextBridge.exposeInMainWorld('isElectron', true);

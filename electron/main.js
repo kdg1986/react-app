@@ -1,53 +1,64 @@
-const { app, BrowserWindow, ipcMain  } = require('electron');
-const {Menu, Tray} = require('electron');
+const { app, BrowserWindow, Menu, Tray  } = require('electron');
 
-const createWindow = () => {
-  // Create the browser window.
+let tray;
+let trayClose=false;
+const trayIconPath = require('path').resolve(__dirname,'../../electron/icon/tray.jpg');
+function createWindow(){
+    this.mainWindow = new BrowserWindow({    
+      width : 1024,
+      height : 768,
+      fullscreenable : true,
+      webPreferences: {
+        nodeIntegration: false,
+        preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY
+      }    
+    });
+}
+createWindow.prototype.windowInit = function(){
+    this.mainWindow.removeMenu();
+    this.mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);  
+    this.mainWindow.webContents.openDevTools();
 
-  const mainWindow = new BrowserWindow({    
-    width : 1024,
-    height : 768,
-    fullscreenable : true,
-    webPreferences: {
-      nodeIntegration: true,
-      preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY
-    }    
-  });
+    this.mainWindow.on('minimize',(event) => {
+      event.preventDefault();
+      this.mainWindow.hide();
+    });
+    this.mainWindow.on('close', (event) => {    
+        if(!trayClose){
+            event.preventDefault();
+            this.mainWindow.hide();
+        }
+        return false;
+    });
+    this.mainWindow.hide();
+}
+createWindow.prototype.systemTray = function(){
+  tray = new Tray(trayIconPath); 
+  const myMenu = Menu.buildFromTemplate([    
+    {type: 'separator'},   
+    {label: '종료', type: 'normal', click: ()=>{ 
+      trayClose = true;
+      app.quit(); 
+    }}
+  ])
+  tray.setToolTip('electron tray')
+  tray.setContextMenu(myMenu);
+  tray.on('double-click',() => {
+    this.mainWindow.show();
+  }) 
+}
 
-  mainWindow.removeMenu();
-
-  // and load the index.html of the app.
-  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
-
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
-
-  let tray;
-  //트레이 아이콘
-  function initTrayIconMenu(){
-    tray = new Tray( require('path').resolve(__dirname,'../../electron/icon/tray.jpg') ); 
-    const myMenu = Menu.buildFromTemplate([
-      {label: '1번', type: 'normal', checked: true, click: ()=>{console.log('1번클릭!')} },  //checked는 기본선택입니다.
-      {label: '2번', type: 'normal', click: ()=>{console.log('2번클릭!')}},
-      {label: '3번', type: 'normal', click: ()=>{console.log('3번클릭!')}}
-    ])
-    tray.setToolTip('트레이 아이콘!')
-    tray.setContextMenu(myMenu)
-  }
-
-  initTrayIconMenu();
-  
-};
-
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+app.on('ready', ()=>{
+  const window = new createWindow();
+  window.windowInit();
+  window.systemTray();
+});
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
+    console.log( process.platform )
   if (process.platform !== 'darwin') {
     app.quit();
   }
@@ -60,16 +71,3 @@ app.on('activate', () => {
     createWindow();
   }
 });
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.
-
-ipcMain.on('asynchronous-message', (event, arg) => {
-  console.log(arg) // prints "ping"
-  event.reply('asynchronous-reply', 'pong')
-})
-
-ipcMain.on('synchronous-message', (event, arg) => {
-  console.log(arg) // prints "ping"
-  event.returnValue = 'pong'
-})
