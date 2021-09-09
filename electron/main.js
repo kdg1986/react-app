@@ -1,4 +1,5 @@
 const { app, BrowserWindow, ipcMain  } = require('electron');
+const {Menu, Tray} = require('electron');
 
 const createWindow = () => {
   // Create the browser window.
@@ -21,6 +22,20 @@ const createWindow = () => {
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 
+  let tray;
+  //트레이 아이콘
+  function initTrayIconMenu(){
+    tray = new Tray( require('path').resolve(__dirname,'../../electron/icon/tray.jpg') ); 
+    const myMenu = Menu.buildFromTemplate([
+      {label: '1번', type: 'normal', checked: true, click: ()=>{console.log('1번클릭!')} },  //checked는 기본선택입니다.
+      {label: '2번', type: 'normal', click: ()=>{console.log('2번클릭!')}},
+      {label: '3번', type: 'normal', click: ()=>{console.log('3번클릭!')}}
+    ])
+    tray.setToolTip('트레이 아이콘!')
+    tray.setContextMenu(myMenu)
+  }
+
+  initTrayIconMenu();
   
 };
 

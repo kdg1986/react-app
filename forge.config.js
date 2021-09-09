@@ -38,7 +38,7 @@ module.exports = {
               "name": "main_window",
               "preload": {
                 "js": "./electron/preload.js"
-              }
+              },              
             }
           ]
         }
