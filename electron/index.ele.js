@@ -5,6 +5,8 @@ import App from '@ELECTRON/layout';
 import { Provider } from 'react-redux';
 import store from '@/store';
 
+window.ipcRenderer.send('asynchronous-message', 'ping')
+
 ReactDOM.render(
   /*<React.StrictMode>*/
     <Provider store={store}>

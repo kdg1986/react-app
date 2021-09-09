@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain  } = require('electron');
 
 const createWindow = () => {
   // Create the browser window.
@@ -6,7 +6,11 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({    
     width : 1024,
     height : 768,
-    fullscreenable : true,    
+    fullscreenable : true,
+    webPreferences: {
+      nodeIntegration: true,
+      preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY
+    }    
   });
 
   mainWindow.removeMenu();
@@ -44,3 +48,13 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+
+ipcMain.on('asynchronous-message', (event, arg) => {
+  console.log(arg) // prints "ping"
+  event.reply('asynchronous-reply', 'pong')
+})
+
+ipcMain.on('synchronous-message', (event, arg) => {
+  console.log(arg) // prints "ping"
+  event.returnValue = 'pong'
+})

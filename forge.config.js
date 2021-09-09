@@ -35,7 +35,10 @@ module.exports = {
             {
               "html": "./public/index.html",
               "js": "./electron/index.ele.js",
-              "name": "main_window"
+              "name": "main_window",
+              "preload": {
+                "js": "./electron/preload.js"
+              }
             }
           ]
         }
